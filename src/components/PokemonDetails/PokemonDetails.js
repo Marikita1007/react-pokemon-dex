@@ -1,17 +1,24 @@
-//後でこの内容を変更
-import React from 'react';
-import { useParams } from 'react-router-dom';
-
-const PokemonDetails = () => {
-    const { id } = useParams();
-
+//import './pokemonDetails.scss';
+import BtnAddToTeam from "../BtnAddToTeam/BtnAddToTeam";
+const PokemonDetails = ( {pokemon} ) => {
     return (
-        <div>
-            <h2>Pokemon Details</h2>
-            <p>Pokemon ID: {id}</p>
-            {/* その他の詳細情報を表示するコンポーネントを追加 */}
-        </div>
-    );
-};
-
+        <section id="pokemon_details">
+            { pokemon && (
+                <>
+                    <h2>{ pokemon.name }</h2>
+                    <BtnAddToTeam pokemonName={ pokemon.name } />
+                    <img src={ pokemon.sprites.front_default } width="200" height="auto" />
+                    <h3>Stats</h3>
+                    { pokemon.stats.map( (item, i) => (
+                        <p key={i}>{ item.stat.name }: { item.base_stat }</p>
+                    ))}
+                    <h3>Types</h3>
+                    { pokemon.types.map( (item, i) => <p key={i}>{ item.type.name }</p> ) }
+                    <h3>Capacités</h3>
+                    { pokemon.abilities.map( (item, i) => <p key={i}>{ item.ability.name }</p> ) }
+                </>
+            ) }
+        </section>
+    )
+}
 export default PokemonDetails;
